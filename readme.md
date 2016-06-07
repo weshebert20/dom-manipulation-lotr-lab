@@ -16,7 +16,7 @@ To practice manipulating the DOM, we've provided you with a series of steps in a
 
 #### Requirements
 
-- Open the `/fellowships.js` file in the [starter-code](starter-code/app/) This is where you will work. Define and invoke the functions outlined as comments.
+- Open the `/fellowship.js` file in the [starter-code](starter-code/app/) This is where you will work. Define and invoke the functions outlined as comments.
 - There are 12 steps in total.  Try to get through at least the first five in this lab period.
 
 **Bonus:**
