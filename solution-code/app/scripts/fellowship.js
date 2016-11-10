@@ -19,41 +19,43 @@ var buddies = [
 var lands = ['The Shire', 'Rivendell', 'Mordor'];
 var body = document.querySelector('body');
 
-function makeMiddleEarth() {
-    // create a section tag with an id of middle-earth
-    var middleEarth = document.createElement('section');
-    for(var i = 0, len = lands.length; i < len; i++){
-      // add each land as an article tag
-      var land = document.createElement('article');
-      // inside each article tag include an h1 with the name of the land
-      land.innerHTML = '<h1>' + lands[i] + '</h1>';
-      middleEarth.appendChild(land);
+function putOnPage(element, destination) {
+  var newObject = document.createElement(element.tag);
+  for (var i = 0; i < element.children.length; i++) {
+    if (element.subChildTag) {
+      element.children[i] = "<" + element.subChildTag + ">" +
+      element.children[i] + "</" + element.subChildTag + ">";
     }
-    // append middle-earth to your document body
-    body.appendChild(middleEarth);
+    var child = document.createElement(element.childTag);
+    child.innerHTML = element.children[i];
+    newObject.appendChild(child);
+  }
+  destination.appendChild(newObject);
 }
 
-makeMiddleEarth();
+function HTMLObject(tag, children, childTag, subChildTag) {
+  this.tag = tag;
+  this.children = children;
+  this.childTag = childTag;
+  this.subChildTag = subChildTag;
+}
 
+// Step 1
+var middleEarth = new HTMLObject("section", lands, "article", "h1");
+putOnPage(middleEarth, body);
+
+// Save lands as destinations
 var theShire = body.querySelectorAll('article')[0];
 var rivendell = body.querySelectorAll('article')[1];
 var mordor = body.querySelectorAll('article')[2];
-function makeHobbits() {
-  // display an unordered list of hobbits in the shire (which is the first article tag on the page)
-  var hobbitList = document.createElement('ul');
-  for(var i = 0, len = hobbits.length; i < len; i++){
-  // give each hobbit a class of hobbit
-    var hobbit = document.createElement('li');
-    hobbit.className = 'hobbit';
-    hobbit.innerText = hobbits[i];
-    hobbitList.appendChild(hobbit);
-  }
-  theShire.appendChild(hobbitList);
-}
 
-makeHobbits();
-var frodo = body.querySelectorAll('li')[0];
+// Step 2
+var hobbits = new HTMLObject("ul", hobbits, "li");
+putOnPage(hobbits, theShire);
 
+var frodo = body.querySelector('li');
+
+// Step 3
 function keepItSecretKeepItSafe() {
   // create a div with an id of 'the-ring'
   var theRing = document.createElement('div');
@@ -68,22 +70,13 @@ function keepItSecretKeepItSafe() {
 
 keepItSecretKeepItSafe();
 
-function makeBuddies() {
-  // create an aside tag
-  var aside = document.createElement('aside');
-  var buddyList = document.createElement('ul');
-  for(var i = 0, len = buddies.length; i < len; i++){
-    // attach an unordered list of the 'buddies' in the aside
-    var buddy = document.createElement('li');
-    buddy.textContent = buddies[i];
-    buddyList.appendChild(buddy);
-  }
-  // insert your aside as a child element of rivendell
-  aside.appendChild(buddyList);
-  rivendell.appendChild(aside);
-}
-makeBuddies();
+// Step 4
+var buddies = new HTMLObject("ul", buddies, "li");
+var aside = document.createElement('aside');
+putOnPage(buddies, aside);
+rivendell.appendChild(aside);
 
+// Step 5
 var strider = rivendell.querySelectorAll('li')[3];
 
 function beautifulStranger() {
